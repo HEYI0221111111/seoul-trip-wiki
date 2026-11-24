@@ -1,0 +1,554 @@
+<title>首爾三天兩夜</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700&family=Noto+Serif+TC:wght@600;700&display=swap">
+<style>
+/* Layout: 16:9 簡報。寬螢幕一次一頁（鍵盤、按鈕、滑動換頁）；手機改成整份往下捲。色彩沿用攻略網站：青綠＝逛街、朱紅＝市場與吃、灰＝交通與住宿。 */
+:root {
+  --bg: #f3efe7; --paper: #fcfaf6; --panel: #f1ebe0; --line: #e0d6c5; --fg: #26231f; --muted: #6b6358;
+  --shop: #1d5c63; --shop-soft: #dcebea; --food: #b8392f; --food-soft: #f6e1dc; --move: #6f6a62; --move-soft: #e7e2d9;
+  --map-block: #ece5d8; --map-road: #ffffff; --map-park: #cfe3c8;
+  --l1: #0052a4; --l2: #2f9e44; --l4: #00a2d1; --l6: #c7792b; --arex: #3b8fb8;
+  --font-body: "Noto Sans TC", "Microsoft JhengHei", "PingFang TC", sans-serif;
+  --font-display: "Noto Serif TC", "PMingLiU", "Songti TC", serif;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #121418; --paper: #1b1e24; --panel: #23272e; --line: #333842; --fg: #ece7df; --muted: #a59d91;
+    --shop: #7cc4c2; --shop-soft: #1f3a3c; --food: #e8826b; --food-soft: #3a2420; --move: #b3ada3; --move-soft: #2c2f35;
+    --map-block: #22262e; --map-road: #3d424c; --map-park: #2b4434; color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #121418; --paper: #1b1e24; --panel: #23272e; --line: #333842; --fg: #ece7df; --muted: #a59d91;
+  --shop: #7cc4c2; --shop-soft: #1f3a3c; --food: #e8826b; --food-soft: #3a2420; --move: #b3ada3; --move-soft: #2c2f35;
+  --map-block: #22262e; --map-road: #3d424c; --map-park: #2b4434; color-scheme: dark;
+}
+* { box-sizing: border-box; }
+html, body { height: 100%; }
+body {
+  margin: 0; background: var(--bg); color: var(--fg); font-family: var(--font-body); line-height: 1.5;
+  padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px));
+  padding-block: 16px;
+}
+.deck { display: grid; gap: 20px; justify-items: center; }
+.slide {
+  container-type: inline-size; width: 100%; max-width: 1100px; background: var(--paper); border: 1px solid var(--line);
+  border-radius: 10px; padding: 4.2cqw 4.6cqw 3.6cqw; display: flex; flex-direction: column; gap: 2cqw; position: relative; overflow: hidden;
+  font-size: max(15px, 1.55cqw);
+}
+html.present body { overflow: hidden; padding-block: 12px 64px; }
+html.present .deck { height: 100%; align-content: center; }
+html.present .slide { aspect-ratio: 16 / 9; width: min(100%, calc((100vh - 96px) * 16 / 9)); max-width: none; }
+.kicker { font-size: max(12px, 1.15cqw); letter-spacing: .12em; color: var(--muted); font-weight: 700; }
+.kicker b { color: var(--shop); }
+.kicker.food b { color: var(--food); }
+h1, h2 { font-family: var(--font-display); margin: 0; text-wrap: balance; line-height: 1.2; }
+h1 { font-size: max(30px, 5.2cqw); }
+h2 { font-size: max(22px, 3.1cqw); }
+h3 { font-size: max(16px, 1.75cqw); margin: 0 0 .5em; }
+p { margin: 0; }
+.muted { color: var(--muted); }
+.foot { margin-top: auto; display: flex; justify-content: space-between; gap: 1em; font-size: max(11px, 1cqw); color: var(--muted); }
+.cols { display: grid; grid-template-columns: 1.15fr 1fr; gap: 3cqw; min-height: 0; flex: 1; align-items: start; }
+.cols > * { min-width: 0; }
+@container (max-width: 720px) { .cols { grid-template-columns: 1fr; } }
+.tag { display: inline-block; font-size: max(11px, .95cqw); padding: .1em .6em; border-radius: 4px; background: var(--move-soft); color: var(--move); vertical-align: .1em; }
+.tag.warn { background: var(--food-soft); color: var(--food); }
+svg text { font-family: var(--font-body); }
+a { color: var(--shop); }
+
+/* 封面 */
+.cover { justify-content: space-between; }
+.cover .sub { font-size: max(16px, 1.9cqw); color: var(--muted); }
+.chips { display: flex; flex-wrap: wrap; gap: 1cqw; }
+.chip { border: 1px solid var(--line); border-radius: 999px; padding: .3em 1em; font-size: max(13px, 1.3cqw); background: var(--panel); }
+.chip b { color: var(--shop); margin-right: .4em; }
+
+/* 總覽流程 */
+.flow { display: grid; gap: 1.6cqw; flex: 1; align-content: center; }
+.flow-row { display: grid; grid-template-columns: 9em repeat(4, minmax(0, 1fr)); gap: 1.2cqw; align-items: stretch; }
+.flow-row .day { font-family: var(--font-display); font-size: max(15px, 1.6cqw); align-self: center; }
+.flow-row .day small { display: block; font-family: var(--font-body); font-size: .75em; color: var(--muted); }
+.node { border-radius: 8px; padding: .7em .8em; position: relative; font-size: max(13px, 1.35cqw); line-height: 1.35; }
+.node small { display: block; font-size: .8em; opacity: .85; margin-top: .2em; }
+.node.shop { background: var(--shop-soft); color: var(--shop); border: 1px solid var(--shop); }
+.node.food { background: var(--food-soft); color: var(--food); border: 1px solid var(--food); }
+.node.move { background: var(--move-soft); color: var(--fg); border: 1px solid var(--line); }
+.flow-row .node:not(:last-child)::after { content: "→"; position: absolute; right: -1.05em; top: 50%; transform: translateY(-50%); color: var(--muted); font-size: 1.1em; }
+@container (max-width: 720px) {
+  .flow-row { grid-template-columns: 1fr 1fr; }
+  .flow-row .day { grid-column: 1 / -1; }
+  .flow-row .node::after { display: none; }
+}
+.legend { display: flex; flex-wrap: wrap; gap: .4em 1.4em; font-size: max(12px, 1.05cqw); color: var(--muted); }
+.legend i { display: inline-block; width: 1em; height: .7em; border-radius: 2px; margin-right: .4em; vertical-align: -.05em; }
+
+/* 時間軸 */
+.tl { display: grid; grid-template-columns: repeat(var(--n), minmax(0, 1fr)); gap: 1cqw; position: relative; }
+.tl::before { content: ""; position: absolute; left: 0; right: 0; top: 1.05em; height: 2px; background: var(--line); }
+.tl-item { position: relative; padding-top: 2.2em; font-size: max(13px, 1.3cqw); line-height: 1.4; }
+.tl-item::before { content: ""; position: absolute; top: .55em; left: 0; width: 1em; height: 1em; border-radius: 50%; background: var(--paper); border: 3px solid var(--c, var(--move)); }
+.tl-item.shop { --c: var(--shop); } .tl-item.food { --c: var(--food); } .tl-item.move { --c: var(--move); }
+.tl-item time { font-weight: 700; font-variant-numeric: tabular-nums; display: block; }
+.tl-item b { display: block; color: var(--c); }
+.tl-item small { display: block; color: var(--muted); font-size: .85em; margin-top: .25em; }
+@container (max-width: 720px) {
+  .tl { grid-template-columns: 1fr; gap: .9em; padding-left: 1.6em; }
+  .tl::before { left: .45em; right: auto; top: 0; bottom: 0; width: 2px; height: auto; }
+  .tl-item { padding-top: 0; }
+  .tl-item::before { left: -1.6em; top: .2em; }
+}
+.box { background: var(--panel); border-radius: 8px; padding: 1em 1.2em; font-size: max(13px, 1.3cqw); }
+.box ul { margin: 0; padding-left: 1.2em; display: grid; gap: .3em; }
+.box.food { background: var(--food-soft); }
+.box.food h3 { color: var(--food); }
+
+/* 表格 */
+.tbl-wrap { overflow-x: auto; }
+table { border-collapse: collapse; width: 100%; font-size: max(12.5px, 1.25cqw); }
+th, td { text-align: left; padding: .45em .6em; border-bottom: 1px solid var(--line); vertical-align: top; }
+th { color: var(--muted); font-weight: 500; }
+td.num { font-variant-numeric: tabular-nums; }
+
+/* 地圖頁 */
+.minimap { width: 100%; height: auto; display: block; border-radius: 8px; border: 1px solid var(--line); }
+.stops { list-style: none; margin: 0; padding: 0; display: grid; gap: .45em; font-size: max(13px, 1.3cqw); }
+.stops li { display: grid; grid-template-columns: 1.8em 1fr; gap: .5em; align-items: baseline; }
+.stops .no { width: 1.6em; height: 1.6em; border-radius: 50%; background: var(--shop); color: var(--paper); display: grid; place-items: center; font-weight: 700; font-size: .85em; }
+.stops small { color: var(--muted); }
+
+/* 檢查清單 */
+.checks { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1.4cqw 3cqw; font-size: max(13px, 1.35cqw); }
+.checks div { display: grid; grid-template-columns: 2.2em 1fr; gap: .6em; align-items: start; }
+.checks .ic { width: 2em; height: 2em; border-radius: 6px; background: var(--shop-soft); color: var(--shop); display: grid; place-items: center; font-weight: 700; }
+.checks b { display: block; }
+@container (max-width: 720px) { .checks { grid-template-columns: 1fr; } }
+
+/* 導覽 */
+.nav { display: none; }
+html.present .nav {
+  display: flex; position: fixed; left: 0; right: 0; bottom: 0; justify-content: center; align-items: center; gap: 14px;
+  padding: 10px max(16px, env(safe-area-inset-right, 0px)) calc(10px + env(safe-area-inset-bottom, 0px)) max(16px, env(safe-area-inset-left, 0px));
+}
+.nav button { font: 500 14px var(--font-body); color: var(--fg); background: var(--paper); border: 1px solid var(--line); border-radius: 6px; padding: 6px 14px; cursor: pointer; }
+.nav button:disabled { opacity: .4; cursor: default; }
+.nav button:focus-visible { outline: 2px solid var(--food); outline-offset: 2px; }
+.nav .count { font-variant-numeric: tabular-nums; color: var(--muted); font-size: 14px; min-width: 4em; text-align: center; }
+.bar { position: fixed; top: 0; left: 0; height: 3px; background: var(--shop); transition: width .2s; }
+html:not(.present) .bar { display: none; }
+@media (prefers-reduced-motion: reduce) { * { transition: none !important; } }
+</style>
+
+<div class="bar" id="bar"></div>
+<main class="deck" id="deck">
+
+<!-- 1 封面 -->
+<section class="slide cover" id="s1" aria-label="封面">
+  <div class="kicker">住弘大・三天兩夜・2026-11 攻略資料</div>
+  <div style="display:grid;gap:1.4cqw">
+    <h1>首爾三天兩夜</h1>
+    <p class="sub">住弘大，三天各逛一個方向：小店與潮牌、市場與包包、香氛與伴手禮。</p>
+  </div>
+  <svg viewBox="0 0 1000 250" role="img" aria-label="三天都從弘大出發的路線示意">
+    <circle cx="140" cy="125" r="46" fill="var(--move-soft)" stroke="var(--move)" stroke-width="2"/>
+    <text x="140" y="132" text-anchor="middle" font-size="24" font-weight="700" fill="var(--fg)">弘大</text>
+    <path d="M190 105 C 330 30, 520 30, 640 45" fill="none" stroke="var(--shop)" stroke-width="4" stroke-linecap="round"/>
+    <path d="M190 125 C 360 125, 560 125, 640 125" fill="none" stroke="var(--food)" stroke-width="4" stroke-linecap="round"/>
+    <path d="M190 145 C 330 220, 520 220, 640 205" fill="none" stroke="var(--shop)" stroke-width="4" stroke-linecap="round" stroke-dasharray="2 10"/>
+    <g font-size="22" fill="var(--fg)">
+      <text x="660" y="52"><tspan font-weight="700" fill="var(--shop)">第一天</tspan>　延南洞・合井</text>
+      <text x="660" y="132"><tspan font-weight="700" fill="var(--food)">第二天</tspan>　廣藏市場・聖水洞</text>
+      <text x="660" y="212"><tspan font-weight="700" fill="var(--shop)">第三天</tspan>　漢南洞・南大門市場</text>
+    </g>
+  </svg>
+  <div class="foot"><span>依「首爾旅遊攻略」wiki 整理</span><span>匯率 ₩1,000 ≈ NT$25（2026-11）</span></div>
+</section>
+
+<!-- 2 總覽 -->
+<section class="slide" id="s2" aria-label="三天總覽">
+  <div class="kicker"><b>總覽</b>　三天都從弘大出發</div>
+  <h2>三天十二站</h2>
+  <div class="flow">
+    <div class="flow-row"><div class="day">第一天<small>潮牌與小店</small></div>
+      <div class="node move">抵達弘大<small>AREX 普通車直達</small></div>
+      <div class="node shop">延南洞小店<small>香氛、娃娃、包包</small></div>
+      <div class="node shop">合井潮牌街<small>잔다리로旗艦店</small></div>
+      <div class="node food">弘大晚餐<small>辣炒雞排</small></div></div>
+    <div class="flow-row"><div class="day">第二天<small>市場與包包</small></div>
+      <div class="node food">廣藏市場<small>綠豆煎餅早午餐</small></div>
+      <div class="node shop">聖水洞<small>練武場街</small></div>
+      <div class="node food">烤肉晚餐<small>肉典或金豬</small></div>
+      <div class="node move">回弘大<small>地鐵</small></div></div>
+    <div class="flow-row"><div class="day">第三天<small>香氛與伴手禮</small></div>
+      <div class="node move">退房寄行李<small>弘大飯店</small></div>
+      <div class="node shop">漢南洞<small>香氛、選物</small></div>
+      <div class="node food">南大門市場<small>午餐、伴手禮</small></div>
+      <div class="node move">往機場<small>傍晚後班機</small></div></div>
+  </div>
+  <div class="legend"><span><i style="background:var(--shop)"></i>逛街購物</span><span><i style="background:var(--food)"></i>市場與吃</span><span><i style="background:var(--move)"></i>交通與住宿</span></div>
+</section>
+
+<!-- 3 地鐵 -->
+<section class="slide" id="s3" aria-label="地鐵怎麼串">
+  <div class="kicker"><b>交通</b>　2 號線和 6 號線就能串起三天</div>
+  <h2>地鐵怎麼串</h2>
+  <svg viewBox="0 0 1000 430" role="img" aria-label="簡化地鐵路線圖">
+    <g fill="none" stroke-width="9" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M60 70 L200 190" stroke="var(--arex)"/>
+      <path d="M200 190 L470 310" stroke="var(--arex)" stroke-dasharray="1 16"/>
+      <path d="M140 270 L200 190 L420 190 L560 190 L820 190" stroke="var(--l2)"/>
+      <path d="M820 190 L820 70 L720 70" stroke="var(--l2)" stroke-dasharray="14 8"/>
+      <path d="M720 70 L420 70 L420 190" stroke="var(--l1)"/>
+      <path d="M140 270 L140 380 L420 380 L640 380 L840 300" stroke="var(--l6)"/>
+      <path d="M420 380 L470 310 L590 310" stroke="var(--l4)"/>
+    </g>
+    <g stroke="var(--fg)" stroke-width="3" fill="var(--paper)">
+      <circle cx="200" cy="190" r="13"/><circle cx="140" cy="270" r="13"/><circle cx="420" cy="190" r="10"/><circle cx="560" cy="190" r="13"/>
+      <circle cx="820" cy="190" r="13"/><circle cx="720" cy="70" r="13"/><circle cx="420" cy="380" r="10"/><circle cx="640" cy="380" r="13"/>
+      <circle cx="840" cy="300" r="13"/><circle cx="470" cy="310" r="10"/><circle cx="590" cy="310" r="13"/><circle cx="60" cy="70" r="13"/>
+    </g>
+    <g font-size="19" fill="var(--fg)">
+      <text x="222" y="178" font-weight="700">弘大入口（飯店）</text>
+      <text x="96" y="276" text-anchor="end" font-weight="700">合井</text>
+      <text x="80" y="58">仁川機場</text>
+      <text x="420" y="218" text-anchor="middle" fill="var(--muted)" font-size="16">市廳</text>
+      <text x="560" y="222" text-anchor="middle" font-weight="700">乙支路4街</text>
+      <text x="560" y="244" text-anchor="middle" fill="var(--food)" font-size="16">廣藏市場</text>
+      <text x="820" y="222" text-anchor="middle" font-weight="700">聖水</text>
+      <text x="820" y="244" text-anchor="middle" fill="var(--shop)" font-size="16">練武場街</text>
+      <text x="720" y="48" text-anchor="middle" font-weight="700">新設洞</text>
+      <text x="606" y="48" text-anchor="end" fill="var(--food)" font-size="16">肉典食堂</text>
+      <text x="420" y="410" text-anchor="middle" fill="var(--muted)" font-size="16">三角地</text>
+      <text x="640" y="412" text-anchor="middle" font-weight="700">漢江鎮</text>
+      <text x="640" y="350" text-anchor="middle" fill="var(--shop)" font-size="16">漢南洞</text>
+      <text x="862" y="306" font-weight="700">藥水</text>
+      <text x="862" y="328" fill="var(--food)" font-size="16">金豬食堂</text>
+      <text x="458" y="300" text-anchor="end" fill="var(--muted)" font-size="16">首爾站</text>
+      <text x="612" y="316" font-weight="700">會賢</text>
+      <text x="612" y="292" fill="var(--food)" font-size="16">南大門市場</text>
+    </g>
+    <g font-size="15" fill="var(--muted)">
+      <rect x="40" y="398" width="16" height="8" fill="var(--l2)"/><text x="62" y="406">2 號線</text>
+      <rect x="140" y="398" width="16" height="8" fill="var(--l6)"/><text x="162" y="406">6 號線</text>
+      <rect x="40" y="418" width="16" height="8" fill="var(--l4)"/><text x="62" y="426">4 號線</text>
+      <rect x="140" y="418" width="16" height="8" fill="var(--l1)"/><text x="162" y="426">1 號線</text>
+      <rect x="240" y="398" width="16" height="8" fill="var(--arex)"/><text x="262" y="406">AREX</text>
+    </g>
+  </svg>
+  <p class="muted">搭一次地鐵約 ₩1,550（約 NT$39），依距離加價。AREX 普通車到弘大入口站不到 ₩5,000、約 50 多分鐘，可直接刷交通卡；直達車不停弘大。示意圖不照實際比例，虛線是聖水支線與首爾站方向。</p>
+</section>
+
+<!-- 4 第一天時間軸 -->
+<section class="slide" id="s4" aria-label="第一天時間軸">
+  <div class="kicker"><b>第一天</b>　弘大與延南洞</div>
+  <h2>中午到弘大，下午逛小店和潮牌</h2>
+  <div class="tl" style="--n:6">
+    <div class="tl-item move"><time>12:00</time><b>弘大飯店</b>寄放行李<small>AREX 普通車到弘大入口</small></div>
+    <div class="tl-item food"><time>12:30</time><b>延南洞午餐</b>鹽麵包邊走邊吃<small>單一來源</small></div>
+    <div class="tl-item shop"><time>13:00</time><b>延南洞小店</b>照地圖 1→6 逛<small>3 號出口步行</small></div>
+    <div class="tl-item shop"><time>16:30</time><b>合井潮牌街</b>잔다리로旗艦店<small>步行</small></div>
+    <div class="tl-item shop"><time>18:00</time><b>MUSINSA STANDARD</b>弘大店<small>양화로 144</small></div>
+    <div class="tl-item food"><time>19:00</time><b>弘大晚餐</b>9 號出口一帶<small>步行</small></div>
+  </div>
+  <div class="cols">
+    <div class="box food"><h3>晚餐選項</h3><ul>
+      <li><b>主選：申美京辣炒雞排</b>（신미경홍대닭갈비）와우산로21길，11:00–22:40，21:50 最後點餐 <span class="tag">價格待查</span></li>
+      <li>備案：一片鰻魚（일편장어），店員代烤，可線上訂位</li>
+      <li>備案：6 號線一站到望遠市場吃小吃</li></ul></div>
+    <div class="box"><h3>小提醒</h3><ul>
+      <li>延南洞多數小店 12:00 後才開，fwee AGIT 11:00 就開。</li>
+      <li>主街홍익로的餐廳比小巷貴約 20～30%。</li>
+      <li>第二天晚餐是烤肉，所以這天不排烤肉。</li></ul></div>
+  </div>
+</section>
+
+<!-- 5 第一天地圖 -->
+<section class="slide" id="s5" aria-label="第一天地圖">
+  <div class="kicker"><b>第一天</b>　延南洞地圖</div>
+  <h2>從 3 號出口往北逛</h2>
+  <div class="cols">
+    <svg class="minimap" viewBox="0 40 380 440" role="img" aria-label="延南洞簡化地圖">
+      <rect x="0" y="40" width="380" height="440" fill="var(--map-block)"/>
+      <polyline points="110,508 137,496 221,459 287,405 306,396 372,366" fill="none" stroke="var(--map-road)" stroke-width="12" stroke-linecap="round"/>
+      <polyline points="214,353 135,230 100,174 74,136 33,86 14,62" fill="none" stroke="var(--map-road)" stroke-width="7" stroke-linecap="round"/>
+      <polyline points="262,407 238,362 226,327 183,275 135,199 99,142 74,105 60,89 48,82" fill="none" stroke="var(--map-park)" stroke-width="22" stroke-linecap="round" stroke-linejoin="round"/>
+      <text x="20" y="262" font-size="13" font-weight="700" fill="var(--muted)">京義線林蔭道</text>
+      <rect x="296" y="256" width="16" height="14" rx="2" fill="var(--move)" opacity=".5"/><text x="318" y="267" font-size="12" fill="var(--muted)">東津市場</text>
+      <rect x="160" y="442" width="108" height="24" rx="5" fill="var(--fg)"/><text x="214" y="458" text-anchor="middle" font-size="12" font-weight="700" fill="var(--paper)">弘大入口站</text>
+      <g fill="var(--shop)" stroke="var(--paper)" stroke-width="2.5">
+        <circle cx="139" cy="437" r="11"/><circle cx="261" cy="415" r="11"/><circle cx="276" cy="377" r="11"/><circle cx="249" cy="356" r="11"/><circle cx="272" cy="315" r="11"/><circle cx="266" cy="268" r="11"/>
+      </g>
+      <g font-size="12" font-weight="700" fill="var(--paper)" text-anchor="middle">
+        <text x="139" y="441">1</text><text x="261" y="419">2</text><text x="276" y="381">3</text><text x="249" y="360">4</text><text x="272" y="319">5</text><text x="266" y="272">6</text>
+      </g>
+      <text x="360" y="62" text-anchor="end" font-size="12" fill="var(--muted)">↑ 北</text>
+    </svg>
+    <div style="display:grid;gap:1.2em">
+      <ol class="stops">
+        <li><span class="no">1</span><span>fwee AGIT 延南 <small>11:00–21:00，彩妝全系列試用</small></span></li>
+        <li><span class="no">2</span><span>3 號出口周邊 <small>女裝選物店</small></span></li>
+        <li><span class="no">3</span><span>CARLYN 旗艦店、Hetras 弘大店 <small>包包；GD 同款香氛，可退稅</small></span></li>
+        <li><span class="no">4</span><span>Blue Elephant 延南展示間 <small>眼鏡</small></span></li>
+        <li><span class="no">5</span><span>taag 延南 <small>客製化鑰匙圈</small></span></li>
+        <li><span class="no">6</span><span>Geulliming Day、Daol Sangjeom <small>娃娃與角色周邊</small></span></li>
+      </ol>
+      <div class="box"><h3>合井潮牌街（잔다리로）</h3>Covernat（24）、Wacky WiLLy（26）、LMC 與 MARITHÉ（27）</div>
+      <p class="muted" style="font-size:max(12px,1.05cqw)">完整地圖：<a href="https://claude.ai/artifact/1SkqBg8bhQVjfRLkVUoqeZ" target="_blank" rel="noopener">延南洞逛街地圖</a>。地圖資料 © OpenStreetMap 貢獻者。</p>
+    </div>
+  </div>
+</section>
+
+<!-- 6 第二天時間軸 -->
+<section class="slide" id="s6" aria-label="第二天時間軸">
+  <div class="kicker food"><b>第二天</b>　廣藏市場與聖水洞</div>
+  <h2>早上吃市場，下午逛聖水，晚上吃烤肉</h2>
+  <div class="tl" style="--n:5">
+    <div class="tl-item move"><time>09:30</time><b>出發</b>2 號線到乙支路4街<small>4 號出口步行約 6 分鐘</small></div>
+    <div class="tl-item food"><time>10:00</time><b>廣藏市場</b>綠豆煎餅、麻藥飯捲<small>11:00 前人比較少</small></div>
+    <div class="tl-item move"><time>12:00</time><b>往聖水</b>2 號線直達聖水站<small>不用轉車</small></div>
+    <div class="tl-item shop"><time>12:30</time><b>聖水洞</b>照地圖 1→6 逛<small>練武場街</small></div>
+    <div class="tl-item food"><time>18:30</time><b>烤肉晚餐</b>兩家當天決定<small>見下表</small></div>
+  </div>
+  <div class="tbl-wrap"><table>
+    <tr><th></th><th>肉典食堂（육전식당）</th><th>金豬食堂（금돼지식당）</th></tr>
+    <tr><th>招牌</th><td>厚切三層肉、豬頸肉</td><td>帶骨厚切五花，米其林必比登</td></tr>
+    <tr><th>價格</th><td class="num">約 ₩18,000／150g，至少 2 人份 <span class="tag">舊資料</span></td><td class="num">1 人套餐約 ₩41,000 <span class="tag">未標日期</span></td></tr>
+    <tr><th>排隊</th><td>不接受訂位，依時段差很多</td><td>常排 1～2 小時，10:00 起現場登記</td></tr>
+    <tr><th>從聖水去</th><td>聖水支線直達新設洞站</td><td>轉乘到藥水站 <span class="tag warn">路線待查</span></td></tr>
+    <tr><th>回弘大</th><td>1 號線到市廳，轉 2 號線</td><td>6 號線直達合井</td></tr>
+  </table></div>
+  <p class="muted" style="font-size:max(12px,1.1cqw)">想吃金豬就要早上先去登記，會和廣藏市場衝突。若第二天是週一，聖水的 sienne 公休。轉乘路線出發前用 Naver Map 確認。</p>
+</section>
+
+<!-- 7 第二天地圖 -->
+<section class="slide" id="s7" aria-label="第二天地圖與必吃">
+  <div class="kicker food"><b>第二天</b>　聖水洞地圖・廣藏必吃</div>
+  <h2>練武場街照號碼走，不走回頭路</h2>
+  <div class="cols">
+    <svg class="minimap" viewBox="0 0 1100 888" role="img" aria-label="聖水洞簡化地圖">
+      <rect x="0" y="0" width="1100" height="888" fill="var(--map-block)"/>
+      <polyline points="517,882 594,648 668,422 680,407 721,175" fill="none" stroke="var(--map-road)" stroke-width="16" stroke-linecap="round"/>
+      <polyline points="7,428 594,648 1100,840" fill="none" stroke="var(--map-road)" stroke-width="18" stroke-linecap="round"/>
+      <polyline points="271,333 672,417 820,474 1046,559 1100,579" fill="none" stroke="var(--l2)" stroke-width="9" stroke-linecap="round" opacity=".8"/>
+      <polyline points="489,344 273,329 83,189 0,160" fill="none" stroke="var(--l2)" stroke-width="9" stroke-linecap="round" opacity=".8"/>
+      <text x="150" y="470" font-size="30" font-weight="700" fill="var(--muted)" transform="rotate(20.5 150 470)">연무장길 練武場街</text>
+      <rect x="520" y="358" width="122" height="44" rx="8" fill="var(--fg)"/><text x="581" y="388" text-anchor="middle" font-size="26" font-weight="700" fill="var(--paper)">聖水站</text>
+      <g fill="var(--shop)" stroke="var(--paper)" stroke-width="5">
+        <circle cx="182" cy="502" r="26"/><circle cx="715" cy="491" r="26"/><circle cx="1061" cy="650" r="26"/><circle cx="643" cy="680" r="26"/><circle cx="784" cy="707" r="26"/><circle cx="319" cy="40" r="26"/>
+      </g>
+      <g font-size="28" font-weight="700" fill="var(--paper)" text-anchor="middle">
+        <text x="182" y="512">1</text><text x="715" y="501">2</text><text x="1061" y="660">3</text><text x="643" y="690">4</text><text x="784" y="717">5</text><text x="319" y="50">6</text>
+      </g>
+      <text x="1080" y="40" text-anchor="end" font-size="26" fill="var(--muted)">↑ 北</text>
+    </svg>
+    <div style="display:grid;gap:1em">
+      <ol class="stops">
+        <li><span class="no">1</span><span>GENERAL IDEA、MARITHÉ 等 <small>練武場街前段女裝</small></span></li>
+        <li><span class="no">2</span><span>Stand Oil、Marge Sherwood <small>Chubby Bag ₩109,000</small></span></li>
+        <li><span class="no">3</span><span>SATUR、RAIVE <small>연무장17길</small></span></li>
+        <li><span class="no">4</span><span>minitmute、Hetras 聖水 <small>3 樓可 DIY 固體香水</small></span></li>
+        <li><span class="no">5</span><span>sienne、MUSINSA STANDARD、LOW CLASSIC <small>女裝最密集</small></span></li>
+        <li><span class="no">6</span><span>Matin Kim 聖水旗艦店 <small>2 號線北側</small></span></li>
+      </ol>
+      <div class="box food"><h3>廣藏市場必吃</h3><ul>
+        <li>綠豆煎餅：順熙家、朴家，一片約 ₩5,000</li>
+        <li>麻藥飯捲、生拌牛肉、糯米麻花捲</li>
+        <li>小攤建議帶現金</li></ul></div>
+      <p class="muted" style="font-size:max(12px,1.05cqw)">完整地圖：<a href="https://claude.ai/artifact/SgGToXxxVjzC3ZW4mvqscf" target="_blank" rel="noopener">聖水洞逛街地圖</a>。</p>
+    </div>
+  </div>
+</section>
+
+<!-- 8 第三天時間軸 -->
+<section class="slide" id="s8" aria-label="第三天時間軸">
+  <div class="kicker"><b>第三天</b>　漢南洞與南大門市場</div>
+  <h2>早上逛漢南，下午買伴手禮，傍晚去機場</h2>
+  <div class="tl" style="--n:6">
+    <div class="tl-item move"><time>10:00</time><b>退房</b>飯店寄行李</div>
+    <div class="tl-item move"><time>10:30</time><b>往漢南</b>合井搭 6 號線<small>直達漢江鎮站</small></div>
+    <div class="tl-item shop"><time>11:00</time><b>漢南洞</b>照地圖 1→3 逛<small>香氛與選物</small></div>
+    <div class="tl-item food"><time>13:30</time><b>南大門市場</b>午餐、伴手禮<small>6 號線轉 4 號線到會賢 5 號出口</small></div>
+    <div class="tl-item move"><time>16:00</time><b>回弘大</b>取行李<small>4 號線到首爾站轉車</small></div>
+    <div class="tl-item move"><time>16:30</time><b>往機場</b>AREX 普通車<small>約 50 多分鐘</small></div>
+  </div>
+  <div class="cols">
+    <div class="box food"><h3>南大門午餐</h3><ul>
+      <li>刀削麵街、辣燉白帶魚街 <span class="tag">價格待查</span></li>
+      <li>零售約到 17:00，熟食巷約到 21:00</li>
+      <li>小攤多收現金</li></ul></div>
+    <div class="box"><h3>小提醒</h3><ul>
+      <li>漢南洞多數店 11:00 開，Tamburins 11:00–21:00。</li>
+      <li>機場辦退稅要預留時間。</li>
+      <li>轉乘路線出發前用 Naver Map 確認。</li></ul></div>
+  </div>
+</section>
+
+<!-- 9 第三天地圖 -->
+<section class="slide" id="s9" aria-label="第三天地圖與必買">
+  <div class="kicker"><b>第三天</b>　漢南洞地圖・南大門必買</div>
+  <h2>從漢江鎮站沿梨泰院路往西南走</h2>
+  <div class="cols">
+    <svg class="minimap" viewBox="0 0 704 777" role="img" aria-label="漢南洞簡化地圖">
+      <rect x="0" y="0" width="704" height="777" fill="var(--map-block)"/>
+      <polyline points="334,411 337,434 346,481 370,442 400,391 406,360" fill="none" stroke="var(--map-road)" stroke-width="7" stroke-linecap="round"/>
+      <polyline points="4,763 106,749 180,727 237,697 290,646 343,588 379,546 453,427 484,320 510,211 528,122 554,0" fill="none" stroke="var(--map-road)" stroke-width="16" stroke-linecap="round" stroke-linejoin="round"/>
+      <text x="470" y="470" font-size="22" font-weight="700" fill="var(--muted)" transform="rotate(-58 470 470)">이태원로 梨泰院路</text>
+      <rect x="540" y="168" width="128" height="36" rx="8" fill="var(--fg)"/><text x="604" y="193" text-anchor="middle" font-size="20" font-weight="700" fill="var(--paper)">漢江鎮站</text>
+      <text x="20" y="730" font-size="20" fill="var(--muted)">↙ 往梨泰院站</text>
+      <g fill="var(--shop)" stroke="var(--paper)" stroke-width="4">
+        <circle cx="255" cy="653" r="12"/><circle cx="341" cy="553" r="12"/>
+        <circle cx="350" cy="613" r="20"/><circle cx="436" cy="406" r="20"/><circle cx="375" cy="457" r="20"/>
+      </g>
+      <g font-size="22" font-weight="700" fill="var(--paper)" text-anchor="middle">
+        <text x="350" y="621">1</text><text x="436" y="414">2</text><text x="375" y="465">3</text>
+      </g>
+      <text x="680" y="36" text-anchor="end" font-size="20" fill="var(--muted)">↑ 北</text>
+    </svg>
+    <div style="display:grid;gap:1em">
+      <ol class="stops">
+        <li><span class="no">1</span><span>TAMBURINS、BEAKER、VILLA DE MARITHÉ <small>梨泰院路 229～241 號，相距約 100 公尺</small></span></li>
+        <li><span class="no">2</span><span>Hetras 漢南店 <small>船造型裝置</small></span></li>
+        <li><span class="no">3</span><span>The SATUR、NONFICTION <small>이태원로55가길，在樓上</small></span></li>
+      </ol>
+      <div class="box food"><h3>南大門必買</h3><ul>
+        <li>草莓乾、乾貨、海苔</li>
+        <li>人參：送長輩</li>
+        <li>眼鏡、廚具、生活小物</li></ul></div>
+      <p class="muted" style="font-size:max(12px,1.05cqw)">完整地圖：<a href="https://claude.ai/artifact/H8DpkKRdHWjHzP7u15JMvB" target="_blank" rel="noopener">漢南洞逛街地圖</a>。</p>
+    </div>
+  </div>
+</section>
+
+<!-- 10 預算 -->
+<section class="slide" id="s10" aria-label="預算">
+  <div class="kicker"><b>預算</b>　每人、只算攻略裡有價格的項目</div>
+  <h2>已知的交通加餐費，每人約 ₩5.0 萬～7.3 萬</h2>
+  <svg viewBox="0 0 1000 340" role="img" aria-label="預算長條圖">
+    <g stroke="var(--line)" stroke-width="1">
+      <line x1="300" y1="10" x2="300" y2="290"/><line x1="455" y1="10" x2="455" y2="290"/><line x1="611" y1="10" x2="611" y2="290"/><line x1="766" y1="10" x2="766" y2="290"/><line x1="922" y1="10" x2="922" y2="290"/>
+    </g>
+    <g font-size="15" fill="var(--muted)" text-anchor="middle">
+      <text x="300" y="312">₩0</text><text x="455" y="312">₩10,000</text><text x="611" y="312">₩20,000</text><text x="766" y="312">₩30,000</text><text x="922" y="312">₩40,000</text>
+    </g>
+    <g font-size="18" fill="var(--fg)" text-anchor="end">
+      <text x="285" y="38">AREX 普通車來回</text><text x="285" y="88">地鐵約 8 趟</text><text x="285" y="138">廣藏市場早午餐</text><text x="285" y="188">烤肉：肉典食堂</text><text x="285" y="238">烤肉：金豬食堂</text><text x="285" y="282">其他餐費</text>
+    </g>
+    <rect x="300" y="18" width="155" height="28" rx="3" fill="var(--move)"/>
+    <rect x="300" y="68" width="193" height="28" rx="3" fill="var(--move)"/>
+    <rect x="300" y="118" width="155" height="28" rx="3" fill="var(--food)"/>
+    <rect x="300" y="168" width="280" height="28" rx="3" fill="var(--food)"/>
+    <rect x="300" y="218" width="638" height="28" rx="3" fill="var(--food)" opacity=".75"/>
+    <rect x="300" y="262" width="300" height="28" rx="3" fill="none" stroke="var(--muted)" stroke-width="2" stroke-dasharray="6 5"/>
+    <g font-size="16" fill="var(--fg)">
+      <text x="465" y="38">約 ₩10,000（NT$250）</text>
+      <text x="503" y="88">約 ₩12,400（NT$310）</text>
+      <text x="465" y="138">約 ₩10,000（NT$250）估算</text>
+      <text x="590" y="188">約 ₩18,000（NT$450）</text>
+      <text x="930" y="238" text-anchor="end" fill="var(--paper)" font-weight="700">約 ₩41,000（NT$1,025）</text>
+      <text x="612" y="282" fill="var(--muted)">待查：辣炒雞排、鰻魚、南大門、延南洞午餐</text>
+    </g>
+  </svg>
+  <div class="legend"><span><i style="background:var(--move)"></i>交通</span><span><i style="background:var(--food)"></i>餐費</span><span>烤肉二選一；不含住宿與購物；虛線＝攻略裡還沒有價格</span></div>
+</section>
+
+<!-- 11 停留時間 -->
+<section class="slide" id="s11" aria-label="各區停留時間">
+  <div class="kicker"><b>節奏</b>　每天的時間花在哪裡</div>
+  <h2>第二天最滿，第三天要趕在 17:00 前</h2>
+  <svg viewBox="0 0 1000 300" role="img" aria-label="三天停留時間堆疊長條圖">
+    <g stroke="var(--line)" stroke-width="1">
+      <line x1="140" y1="10" x2="140" y2="240"/><line x1="280" y1="10" x2="280" y2="240"/><line x1="420" y1="10" x2="420" y2="240"/><line x1="560" y1="10" x2="560" y2="240"/><line x1="700" y1="10" x2="700" y2="240"/><line x1="840" y1="10" x2="840" y2="240"/><line x1="980" y1="10" x2="980" y2="240"/>
+    </g>
+    <g font-size="15" fill="var(--muted)" text-anchor="middle">
+      <text x="140" y="262">0</text><text x="280" y="262">2</text><text x="420" y="262">4</text><text x="560" y="262">6</text><text x="700" y="262">8</text><text x="840" y="262">10</text><text x="980" y="262">12 小時</text>
+    </g>
+    <g font-size="18" fill="var(--fg)" text-anchor="end"><text x="125" y="58">第一天</text><text x="125" y="138">第二天</text><text x="125" y="218">第三天</text></g>
+    <g>
+      <rect x="140" y="30" width="35" height="44" fill="var(--move)"/><rect x="175" y="30" width="35" height="44" fill="var(--food)"/><rect x="210" y="30" width="245" height="44" fill="var(--shop)"/><rect x="455" y="30" width="175" height="44" fill="var(--shop)" opacity=".7"/><rect x="630" y="30" width="105" height="44" fill="var(--food)"/>
+      <rect x="140" y="110" width="35" height="44" fill="var(--move)"/><rect x="175" y="110" width="140" height="44" fill="var(--food)"/><rect x="315" y="110" width="35" height="44" fill="var(--move)"/><rect x="350" y="110" width="420" height="44" fill="var(--shop)"/><rect x="770" y="110" width="140" height="44" fill="var(--food)"/><rect x="910" y="110" width="35" height="44" fill="var(--move)"/>
+      <rect x="140" y="190" width="70" height="44" fill="var(--move)"/><rect x="210" y="190" width="175" height="44" fill="var(--shop)"/><rect x="385" y="190" width="70" height="44" fill="var(--food)"/><rect x="455" y="190" width="105" height="44" fill="var(--shop)" opacity=".7"/><rect x="560" y="190" width="70" height="44" fill="var(--move)"/>
+    </g>
+    <g font-size="15" fill="var(--paper)" font-weight="700" text-anchor="middle">
+      <text x="332" y="57">延南洞 3.5</text><text x="542" y="57">合井 2.5</text>
+      <text x="245" y="137">廣藏 2</text><text x="560" y="137">聖水洞 6</text><text x="840" y="137">烤肉 2</text>
+      <text x="297" y="217">漢南洞 2.5</text><text x="507" y="217">南大門</text>
+    </g>
+  </svg>
+  <div class="legend"><span><i style="background:var(--shop)"></i>逛街</span><span><i style="background:var(--food)"></i>吃</span><span><i style="background:var(--move)"></i>交通與行李</span><span>第一天 12:00–20:30；第二天 09:30–21:00；第三天 10:00–17:00</span></div>
+</section>
+
+<!-- 12 出發前提醒 -->
+<section class="slide" id="s12" aria-label="出發前提醒">
+  <div class="kicker"><b>出發前</b>　七件事</div>
+  <h2>出發前提醒</h2>
+  <div class="checks">
+    <div><span class="ic">卡</span><span><b>交通卡先加值</b>T-money 或 WOWPASS，AREX 普通車和地鐵都能刷。</span></div>
+    <div><span class="ic">₩</span><span><b>帶現金</b>廣藏、南大門小攤多收現金。</span></div>
+    <div><span class="ic">稅</span><span><b>退稅</b>同一家店單次滿 ₩15,000 可現場退稅，Hetras、MUSINSA STANDARD 可退。</span></div>
+    <div><span class="ic">時</span><span><b>營業時間</b>延南洞小店多數 12:00 後開；南大門零售約到 17:00；sienne 週一公休。</span></div>
+    <div><span class="ic">排</span><span><b>排隊</b>廣藏市場 11:00 前去；金豬食堂常排 1～2 小時。</span></div>
+    <div><span class="ic">地</span><span><b>查位置</b>店家用韓文店名在 Naver Map 搜尋。</span></div>
+    <div><span class="ic">雨</span><span><b>雨天備案</b>望遠市場有頂棚；聖水洞多數店在室內。</span></div>
+  </div>
+  <div class="foot"><span>價格與營業時間為 2026-11 攻略資料，出發前請再確認</span><span>首爾三天兩夜</span></div>
+</section>
+
+</main>
+<nav class="nav" aria-label="換頁">
+  <button type="button" id="prev">上一頁</button>
+  <span class="count" id="count">1 / 12</span>
+  <button type="button" id="next">下一頁</button>
+</nav>
+
+<script>
+(function () {
+  const root = document.documentElement;
+  const slides = Array.from(document.querySelectorAll(".slide"));
+  const mq = window.matchMedia("(min-width: 900px) and (min-height: 520px)");
+  let cur = 0;
+  function idxFromHash() {
+    const m = /^#s(\d+)$/.exec(location.hash);
+    const n = m ? parseInt(m[1], 10) - 1 : 0;
+    return Math.min(Math.max(n, 0), slides.length - 1);
+  }
+  function show(i, push) {
+    cur = Math.min(Math.max(i, 0), slides.length - 1);
+    const present = root.classList.contains("present");
+    slides.forEach((s, k) => { s.hidden = present && k !== cur; });
+    document.getElementById("count").textContent = `${cur + 1} / ${slides.length}`;
+    document.getElementById("prev").disabled = cur === 0;
+    document.getElementById("next").disabled = cur === slides.length - 1;
+    document.getElementById("bar").style.width = `${((cur + 1) / slides.length) * 100}%`;
+    if (push && location.hash !== `#s${cur + 1}`) history.replaceState(null, "", `#s${cur + 1}`);
+  }
+  function setMode() {
+    root.classList.toggle("present", mq.matches);
+    show(cur, false);
+    if (!mq.matches && location.hash) {
+      const t = document.getElementById(location.hash.slice(1));
+      if (t) t.scrollIntoView();
+    }
+  }
+  cur = idxFromHash();
+  mq.addEventListener ? mq.addEventListener("change", setMode) : mq.addListener(setMode);
+  setMode();
+  document.getElementById("prev").addEventListener("click", () => show(cur - 1, true));
+  document.getElementById("next").addEventListener("click", () => show(cur + 1, true));
+  window.addEventListener("hashchange", () => show(idxFromHash(), false));
+  document.addEventListener("keydown", e => {
+    if (!root.classList.contains("present")) return;
+    if (["ArrowRight", "PageDown", " "].includes(e.key)) { e.preventDefault(); show(cur + 1, true); }
+    else if (["ArrowLeft", "PageUp"].includes(e.key)) { e.preventDefault(); show(cur - 1, true); }
+    else if (e.key === "Home") show(0, true);
+    else if (e.key === "End") show(slides.length - 1, true);
+  });
+  let x0 = null;
+  document.addEventListener("touchstart", e => { x0 = e.touches[0].clientX; }, { passive: true });
+  document.addEventListener("touchend", e => {
+    if (x0 == null || !root.classList.contains("present")) return;
+    const dx = e.changedTouches[0].clientX - x0; x0 = null;
+    if (Math.abs(dx) > 50) show(cur + (dx < 0 ? 1 : -1), true);
+  }, { passive: true });
+})();
+</script>
